@@ -33,6 +33,8 @@ public class Postagem {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data=new java.sql.Date(System.currentTimeMillis());
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -41,6 +43,9 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 	
 	public Tema getTema() {
 		return tema;
