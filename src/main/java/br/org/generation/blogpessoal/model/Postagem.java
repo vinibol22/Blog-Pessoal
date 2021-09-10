@@ -35,9 +35,7 @@ public class Postagem {
 	private Date data=new java.sql.Date(System.currentTimeMillis());
 	
 	
-	public long getId() {
-		return id;
-	}
+
 
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
@@ -45,17 +43,21 @@ public class Postagem {
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
-	private Usuario usuario;
+	private Usuario usuario;	
 	
+	public long getId() {
+		return id;
+	}
+		public void setId(long id) {
+		this.id = id;
+	}
 	public Tema getTema() {
 		return tema;
 	}
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -73,6 +75,12 @@ public class Postagem {
 	}
 	public void setData(Date data) {
 		this.data = data;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
