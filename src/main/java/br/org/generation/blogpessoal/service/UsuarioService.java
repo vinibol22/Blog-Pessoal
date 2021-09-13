@@ -51,9 +51,9 @@ public class UsuarioService {
 		 int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYears();
 		
 		
-		 if(idade < 18)
+		 if(idade < 16)
 			throw new ResponseStatusException(
-						HttpStatus.BAD_REQUEST, "Usuário menor de 18 anos", null);
+						HttpStatus.BAD_REQUEST, "Usuário menor de 16 anos", null);
 		 
 				
 
@@ -69,27 +69,21 @@ public class UsuarioService {
 	
 	public Optional <Usuario> atualizarUsuario(Usuario usuario){
 		
-		
-		if(usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
-			throw new ResponseStatusException(
-				HttpStatus.BAD_REQUEST, "Usuário já existe!!!!!!!!", null);
-		
 
-		if(usuarioRepository.findByUsuario(usuario.getSenha()).isPresent())
-			throw new ResponseStatusException(
-				HttpStatus.BAD_REQUEST, "Senha já existe!!!!!!", null);
-		
-		
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 			
-		
+		Optional<Usuario>buscaUsuario=usuarioRepository.findByUsuario(usuario.getUsuario());
+				if(buscaUsuario.isPresent()) {
+					if(buscaUsuario.get().getId() != usuario.getId())
+						throw new ResponseStatusException(
+				HttpStatus.BAD_REQUEST, "Usuário já existe!!!!!!!!", null);	
+				}
 			
-
 			int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYears();
 			
-			if(idade < 18)
+			if(idade < 16)
 				throw new ResponseStatusException(
-					HttpStatus.BAD_REQUEST, "Usuário menor de 18 anos", null);
+					HttpStatus.BAD_REQUEST, "Usuário menor de 16 anos", null);
 					
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			
